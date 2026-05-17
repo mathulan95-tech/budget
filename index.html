@@ -9,7 +9,7 @@
 <style>
 :root{
   --bg:#000;--s1:#1c1c1e;--s2:#2c2c2e;--s3:#3a3a3c;
-  --sep:rgba(255,255,255,.08);--sep2:rgba(255,255,255,.05);
+  --sep:rgba(255,255,255,.08);
   --t1:#fff;--t2:rgba(255,255,255,.6);--t3:rgba(255,255,255,.3);
   --blue:#0a84ff;--green:#30d158;--red:#ff453a;--orange:#ff9f0a;
   --purple:#bf5af2;--teal:#5ac8fa;--pink:#ff375f;--indigo:#5e5ce6;
@@ -17,8 +17,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-system,'SF Pro Display','SF Pro Text',sans-serif;font-size:15px;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
-
-/* STRUCTURE */
 .safe-top{height:env(safe-area-inset-top,44px)}
 .page{display:none;height:calc(100vh - env(safe-area-inset-top,44px) - 54px - env(safe-area-inset-bottom,0px));overflow-y:auto}
 .page::-webkit-scrollbar{display:none}
@@ -27,9 +25,9 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 /* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 20px 10px}
 .topbar-title{font-size:32px;font-weight:700;letter-spacing:-.5px}
-.mpill{display:flex;align-items:center;gap:0;background:var(--s2);border-radius:99px;overflow:hidden}
+.mpill{display:flex;align-items:center;background:var(--s2);border-radius:99px;overflow:hidden}
 .mpill button{background:none;border:none;color:var(--t2);font-size:18px;cursor:pointer;padding:6px 10px;line-height:1}
-.mpill span{font-size:13px;font-weight:600;min-width:80px;text-align:center;letter-spacing:-.1px}
+.mpill span{font-size:13px;font-weight:600;min-width:80px;text-align:center}
 
 /* TAB BAR */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.88);border-top:.5px solid var(--sep);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
@@ -42,31 +40,45 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 .fab:active{transform:scale(.9)}
 
 /* HERO */
-.hero{padding:4px 20px 20px}
-.hero-lbl{font-size:13px;color:var(--t3);font-weight:500;margin-bottom:4px;letter-spacing:.2px}
-.hero-amt{font-size:52px;font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:16px}
+.hero{padding:4px 20px 16px}
+.hero-lbl{font-size:13px;color:var(--t3);font-weight:500;margin-bottom:4px}
+.hero-amt{font-size:52px;font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:14px}
 .hero-chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .chip{background:var(--s1);border-radius:var(--r);padding:13px 15px}
 .chip-l{font-size:11px;color:var(--t3);font-weight:500;letter-spacing:.3px;margin-bottom:5px}
 .chip-v{font-size:20px;font-weight:700;letter-spacing:-.5px}
 
+/* ALERT BANNER */
+.alert-banner{margin:0 16px 12px;background:rgba(255,159,10,.12);border:1px solid rgba(255,159,10,.3);border-radius:var(--r);padding:12px 14px}
+.alert-banner-title{font-size:13px;font-weight:600;color:var(--orange);margin-bottom:4px}
+.alert-banner-item{font-size:12px;color:var(--t2);padding:2px 0}
+
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;margin-bottom:10px}
-.kpi{background:var(--s1);border-radius:var(--r);padding:15px}
+.kpi{background:var(--s1);border-radius:var(--r);padding:15px;position:relative;overflow:hidden}
 .kpi-l{font-size:11px;color:var(--t3);font-weight:500;letter-spacing:.3px;margin-bottom:6px}
 .kpi-v{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.kpi-sub{font-size:11px;color:var(--t3);margin-top:4px}
+
+/* BUDGET CAT */
+.budget-cat-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:.5px solid var(--sep)}
+.budget-cat-row:last-child{border-bottom:none}
+.budget-cat-name{font-size:14px;flex:1}
+.budget-cat-vals{text-align:right;font-size:13px;font-weight:600}
+.budget-cat-bar{height:4px;background:var(--s3);border-radius:99px;overflow:hidden;margin-top:4px}
+.budget-cat-fill{height:100%;border-radius:99px;transition:width .5s}
 
 /* SECTION */
-.grp{padding:0 16px;margin-bottom:28px}
+.grp{padding:0 16px;margin-bottom:24px}
 .grp-title{font-size:13px;color:var(--t3);font-weight:500;letter-spacing:.3px;text-transform:uppercase;margin-bottom:10px;padding-left:2px}
 .grp-card{background:var(--s1);border-radius:var(--r-lg);overflow:hidden}
 
 /* ROWS */
-.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:.5px solid var(--sep);min-height:56px}
+.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:.5px solid var(--sep);min-height:52px}
 .row:last-child{border-bottom:none}
 .row-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .row-body{flex:1;min-width:0}
-.row-name{font-size:16px;font-weight:400;letter-spacing:-.1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-name{font-size:16px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row-sub{font-size:12px;color:var(--t3);margin-top:1px}
 .row-right{text-align:right;flex-shrink:0}
 .row-val{font-size:16px;font-weight:600;letter-spacing:-.3px}
@@ -78,36 +90,58 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .pill-bank{background:rgba(10,132,255,.18);color:var(--blue)}
 .pill-cash{background:rgba(255,159,10,.18);color:var(--orange)}
+.pill-sav{background:rgba(48,209,88,.18);color:var(--green)}
 
-/* PROGRESS BAR */
+/* PROGRESS */
 .prog-track{height:5px;background:var(--s3);border-radius:99px;overflow:hidden;margin:8px 0}
 .prog-fill{height:100%;border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 
-/* ─── CHART CANVAS ─── */
-.chart-wrap{padding:16px 16px 8px}
-canvas{display:block}
+/* CASHFLOW CHART */
+.cf-bar-wrap{padding:0 16px 16px;display:flex;align-items:flex-end;gap:6px;height:120px}
+.cf-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.cf-bars{flex:1;width:100%;display:flex;align-items:flex-end;gap:2px}
+.cf-bar-in,.cf-bar-out{flex:1;border-radius:4px 4px 0 0;transition:height .5s cubic-bezier(.4,0,.2,1);min-height:2px}
+.cf-bar-in{background:var(--green);opacity:.8}
+.cf-bar-out{background:var(--red);opacity:.7}
+.cf-bar-lbl{font-size:9px;color:var(--t3);font-weight:500}
 
-/* DONUT LEGEND */
-.donut-legend{padding:0 16px 16px;display:flex;flex-wrap:wrap;gap:8px}
-.dl-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)}
-.dl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+/* SAVINGS CHART */
+.sav-chart-wrap{padding:12px 16px;height:100px;display:flex;align-items:flex-end;gap:4px}
+.sav-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.sav-bar{width:100%;border-radius:4px 4px 0 0;background:var(--green);opacity:.75;min-height:2px;transition:height .5s cubic-bezier(.4,0,.2,1)}
+.sav-bar-lbl{font-size:9px;color:var(--t3);font-weight:500}
 
-/* SAVINGS POCKET */
+/* COLORS */
+.c-green{color:var(--green)}.c-red{color:var(--red)}.c-blue{color:var(--blue)}
+.c-orange{color:var(--orange)}.c-purple{color:var(--purple)}.c-teal{color:var(--teal)}
+
+/* PREVISION CARD */
+.prev-card{background:linear-gradient(135deg,rgba(10,132,255,.15),rgba(94,92,230,.1));border:1px solid rgba(10,132,255,.2);border-radius:var(--r-lg);padding:16px;margin:0 16px 12px}
+.prev-title{font-size:13px;color:var(--t3);font-weight:500;margin-bottom:8px}
+.prev-amount{font-size:32px;font-weight:700;letter-spacing:-1px;color:var(--blue)}
+.prev-sub{font-size:12px;color:var(--t3);margin-top:4px}
+
+/* VITAL CARD */
+.vital-card{background:linear-gradient(135deg,rgba(191,90,242,.12),rgba(94,92,230,.08));border:1px solid rgba(191,90,242,.2);border-radius:var(--r-lg);padding:16px;margin:0 16px 12px}
+
+/* POCKET */
 .pocket{background:var(--s1);border-radius:var(--r-lg);padding:16px;margin-bottom:10px}
 .pocket-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .pocket-name{font-size:16px;font-weight:600}
-.pocket-emoji{font-size:22px}
-.pocket-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--t3);margin-top:8px}
-.pocket-amt{font-size:20px;font-weight:700}
-.pocket-target{font-size:13px;color:var(--t3)}
 .pocket-actions{display:flex;gap:8px;margin-top:12px}
 .pocket-btn{flex:1;padding:9px;background:var(--s2);border:none;border-radius:10px;color:var(--t1);font-size:14px;font-weight:500;cursor:pointer;transition:opacity .12s}
 .pocket-btn:active{opacity:.6}
 .pocket-btn.add{background:rgba(48,209,88,.18);color:var(--green)}
 .pocket-btn.sub{background:rgba(255,69,58,.13);color:var(--red)}
-.pocket-btn.del{background:var(--s2);color:var(--t3);flex:none;width:36px}
 
-/* SETTINGS INLINE INPUT */
+/* EPARGNE ACCOUNTS */
+.sav-account{background:var(--s1);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.sav-account-info{flex:1}
+.sav-account-name{font-size:15px;font-weight:500}
+.sav-account-type{font-size:12px;color:var(--t3);margin-top:2px}
+.sav-account-bal{font-size:18px;font-weight:700;color:var(--green)}
+
+/* SETTINGS */
 .row-inp{flex:1;background:transparent;border:none;color:var(--t1);font-size:16px;outline:none;text-align:right;-webkit-appearance:none;min-width:0}
 .row-inp::placeholder{color:var(--t3)}
 .row-inp::-webkit-inner-spin-button,.row-inp::-webkit-outer-spin-button{-webkit-appearance:none}
@@ -135,31 +169,25 @@ canvas{display:block}
 .sbtn.s-out{background:rgba(255,69,58,.22);color:var(--red)}
 .sbtn.s-bank{background:rgba(10,132,255,.22);color:var(--blue)}
 .sbtn.s-cash{background:rgba(255,159,10,.22);color:var(--orange)}
+.sbtn.s-sav{background:rgba(48,209,88,.22);color:var(--green)}
 .cta{width:100%;padding:15px;background:var(--blue);color:#fff;border:none;border-radius:14px;font-size:17px;font-weight:600;cursor:pointer;margin-top:8px;letter-spacing:-.2px;transition:opacity .12s}
 .cta:active{opacity:.75}
 .cta-green{background:var(--green)}
+.cta-purple{background:rgba(191,90,242,.25);color:var(--purple)}
+.cta-orange{background:rgba(255,159,10,.2);color:var(--orange)}
 .cta-red{background:rgba(255,69,58,.2);color:var(--red)}
+.add-btn{width:100%;padding:13px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px;transition:opacity .12s}
+.add-btn:active{opacity:.7}
 
-/* CASHFLOW BAR CHART */
-.cf-bar-wrap{padding:0 16px 16px;display:flex;align-items:flex-end;gap:6px;height:120px}
-.cf-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.cf-bars{flex:1;width:100%;display:flex;align-items:flex-end;gap:2px}
-.cf-bar-in,.cf-bar-out{flex:1;border-radius:4px 4px 0 0;transition:height .5s cubic-bezier(.4,0,.2,1);min-height:2px}
-.cf-bar-in{background:var(--green);opacity:.8}
-.cf-bar-out{background:var(--red);opacity:.7}
-.cf-bar-lbl{font-size:9px;color:var(--t3);font-weight:500}
-
-/* COLOR UTILS */
-.c-green{color:var(--green)}.c-red{color:var(--red)}.c-blue{color:var(--blue)}.c-orange{color:var(--orange)}.c-purple{color:var(--purple)}
-
-/* RECURRING ROW */
-.rec-badge{font-size:9px;font-weight:600;letter-spacing:.3px;padding:2px 6px;border-radius:99px;background:rgba(191,90,242,.2);color:var(--purple);text-transform:uppercase;margin-left:4px}
+/* PRELEVEMENT BADGE */
+.prel-soon{background:rgba(255,69,58,.15);color:var(--red);font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;letter-spacing:.3px}
+.prel-ok{background:rgba(48,209,88,.12);color:var(--green);font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;letter-spacing:.3px}
 </style>
 </head>
 <body>
 <div class="safe-top"></div>
 
-<!-- ═══════════════════════════════════ DASHBOARD ═══════════════════════════════════ -->
+<!-- ══════════════════ DASHBOARD ══════════════════ -->
 <div class="page on" id="page-dash">
   <div class="topbar">
     <div class="topbar-title">Budget</div>
@@ -170,45 +198,63 @@ canvas{display:block}
     </div>
   </div>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-lbl">Solde disponible</div>
     <div class="hero-amt" id="h-total">—</div>
     <div class="hero-chips">
       <div class="chip"><div class="chip-l">🏦 Banque</div><div class="chip-v c-blue" id="h-bank">—</div></div>
       <div class="chip"><div class="chip-l">💵 Cash</div><div class="chip-v c-orange" id="h-cash">—</div></div>
-      <div class="chip"><div class="chip-l">🎯 Épargne</div><div class="chip-v c-green" id="h-sav">—</div></div>
-      <div class="chip"><div class="chip-l">📅 Récurrent</div><div class="chip-v c-purple" id="h-rec">—</div></div>
+      <div class="chip"><div class="chip-l">📈 Épargne</div><div class="chip-v c-green" id="h-sav">—</div></div>
+      <div class="chip"><div class="chip-l">📅 Charges fixes</div><div class="chip-v c-purple" id="h-rec">—</div></div>
     </div>
+  </div>
+
+  <!-- ALERTES PRÉLÈVEMENTS -->
+  <div id="alert-prel" style="display:none"></div>
+
+  <!-- PRÉVISION 15 JOURS -->
+  <div class="prev-card" id="prev-card">
+    <div class="prev-title">💡 Solde prévisionnel dans 15 jours</div>
+    <div class="prev-amount" id="prev-amount">—</div>
+    <div class="prev-sub" id="prev-sub">Après déduction des prélèvements à venir</div>
+  </div>
+
+  <!-- OBJECTIF MENSUEL -->
+  <div style="padding:0 16px;margin-bottom:12px">
+    <div style="background:var(--s1);border-radius:var(--r-lg);padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:15px;font-weight:600">Objectif épargne mensuelle</span>
+        <span style="font-size:20px;font-weight:700" id="g-pct">—</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="g-bar" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:12px;color:var(--t3)" id="g-sub">Aucun objectif</span>
+        <span style="font-size:12px;font-weight:600;color:var(--green)" id="g-reste"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUDGET PAR CATÉGORIE -->
+  <div class="grp" id="budgets-dash-wrap">
+    <div class="grp-title">Budget par catégorie</div>
+    <div class="grp-card" style="padding:4px 16px 8px" id="budgets-dash"></div>
   </div>
 
   <!-- KPI -->
-  <div class="kpi-grid">
+  <div class="kpi-grid" style="margin-bottom:12px">
     <div class="kpi"><div class="kpi-l">Entrées du mois</div><div class="kpi-v c-green" id="k-in">—</div></div>
     <div class="kpi"><div class="kpi-l">Dépenses du mois</div><div class="kpi-v c-red" id="k-out">—</div></div>
-    <div class="kpi"><div class="kpi-l">Flux net</div><div class="kpi-v" id="k-net">—</div></div>
-    <div class="kpi"><div class="kpi-l">Abonnements</div><div class="kpi-v c-orange" id="k-abo">—</div></div>
+    <div class="kpi"><div class="kpi-l">Reste à dépenser</div><div class="kpi-v" id="k-reste">—</div><div class="kpi-sub" id="k-reste-sub"></div></div>
+    <div class="kpi"><div class="kpi-l">Minimum vital/mois</div><div class="kpi-v c-purple" id="k-vital">—</div></div>
   </div>
 
-  <!-- OBJECTIF EPARGNE -->
-  <div style="padding:0 16px;margin-bottom:16px">
-    <div style="background:var(--s1);border-radius:var(--r-lg);padding:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <span style="font-size:15px;font-weight:600">Objectif épargne</span>
-        <span style="font-size:22px;font-weight:700;letter-spacing:-.5px" id="g-pct">—</span>
-      </div>
-      <div class="prog-track"><div class="prog-fill" id="g-bar" style="width:0%"></div></div>
-      <div style="font-size:12px;color:var(--t3)" id="g-sub">Aucun objectif — Réglages</div>
-    </div>
-  </div>
-
-  <!-- CASHFLOW 6 MOIS -->
+  <!-- CASHFLOW -->
   <div class="grp">
     <div class="grp-title">Cashflow 6 mois</div>
     <div class="grp-card">
-      <div class="chart-wrap" style="padding-bottom:0">
+      <div style="padding-top:16px">
         <div class="cf-bar-wrap" id="cf-bars"></div>
-        <div style="display:flex;gap:16px;padding:10px 16px 14px;justify-content:flex-end">
+        <div style="display:flex;gap:16px;padding:6px 16px 14px;justify-content:flex-end">
           <span style="font-size:11px;color:var(--green);font-weight:500;display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;background:var(--green);border-radius:2px;display:inline-block;opacity:.8"></span>Entrées</span>
           <span style="font-size:11px;color:var(--red);font-weight:500;display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;background:var(--red);border-radius:2px;display:inline-block;opacity:.7"></span>Dépenses</span>
         </div>
@@ -216,11 +262,11 @@ canvas{display:block}
     </div>
   </div>
 
-  <!-- DONUT CATÉGORIES -->
+  <!-- DONUT -->
   <div class="grp">
     <div class="grp-title">Répartition dépenses</div>
     <div class="grp-card">
-      <div class="chart-wrap" style="display:flex;align-items:center;justify-content:center;gap:24px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding:16px">
         <canvas id="donut-canvas" width="140" height="140"></canvas>
         <div id="donut-legend" style="flex:1;display:flex;flex-direction:column;gap:6px;padding-right:8px"></div>
       </div>
@@ -236,7 +282,7 @@ canvas{display:block}
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ MOUVEMENTS ═══════════════════════════════════ -->
+<!-- ══════════════════ MOUVEMENTS ══════════════════ -->
 <div class="page" id="page-tx">
   <div class="topbar"><div class="topbar-title">Mouvements</div></div>
   <div class="grp">
@@ -246,24 +292,26 @@ canvas{display:block}
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ RÉCURRENTS ═══════════════════════════════════ -->
+<!-- ══════════════════ RÉCURRENTS ══════════════════ -->
 <div class="page" id="page-rec">
   <div class="topbar"><div class="topbar-title">Récurrents</div></div>
 
-  <!-- SUMMARY -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;margin-bottom:10px">
-    <div class="kpi"><div class="kpi-l">Charges fixes/mois</div><div class="kpi-v c-purple" id="rec-mo">—</div></div>
-    <div class="kpi"><div class="kpi-l">Abonnements/mois</div><div class="kpi-v c-orange" id="rec-abo">—</div></div>
+  <!-- MINIMUM VITAL -->
+  <div class="vital-card">
+    <div style="font-size:13px;color:var(--t3);font-weight:500;margin-bottom:6px">💜 Minimum vital mensuel</div>
+    <div style="font-size:36px;font-weight:700;letter-spacing:-1.5px;color:var(--purple)" id="vital-total">—</div>
+    <div style="display:flex;gap:16px;margin-top:10px">
+      <div><div style="font-size:11px;color:var(--t3)">Charges fixes</div><div style="font-size:15px;font-weight:600;color:var(--purple)" id="vital-rec">—</div></div>
+      <div><div style="font-size:11px;color:var(--t3)">Abonnements</div><div style="font-size:15px;font-weight:600;color:var(--orange)" id="vital-abo">—</div></div>
+    </div>
   </div>
 
-  <div class="grp">
-    <div class="grp-title">Charges fixes (loyer, essence…)</div>
+  <div class="grp" style="margin-top:16px">
+    <div class="grp-title">Charges fixes</div>
     <div class="grp-card" id="rec-card">
       <div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune charge</div>
     </div>
-    <div style="margin-top:10px">
-      <button class="cta" style="background:rgba(191,90,242,.25);color:var(--purple)" onclick="openOv('rec')">＋ Ajouter une charge fixe</button>
-    </div>
+    <button class="add-btn" style="background:rgba(191,90,242,.2);color:var(--purple)" onclick="openOv('rec')">＋ Ajouter une charge fixe</button>
   </div>
 
   <div class="grp">
@@ -271,41 +319,57 @@ canvas{display:block}
     <div class="grp-card" id="abo-card">
       <div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucun abonnement</div>
     </div>
-    <div style="margin-top:10px">
-      <button class="cta" style="background:rgba(255,159,10,.2);color:var(--orange)" onclick="openOv('abo')">＋ Ajouter un abonnement</button>
-    </div>
+    <button class="add-btn" style="background:rgba(255,159,10,.2);color:var(--orange)" onclick="openOv('abo')">＋ Ajouter un abonnement</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ ÉPARGNE ═══════════════════════════════════ -->
+<!-- ══════════════════ ÉPARGNE ══════════════════ -->
 <div class="page" id="page-sav">
   <div class="topbar"><div class="topbar-title">Épargne</div></div>
 
-  <!-- TOTAL EPARGNE -->
   <div class="hero" style="padding-top:0;padding-bottom:12px">
     <div class="hero-lbl">Total épargné</div>
     <div class="hero-amt c-green" id="sav-total">—</div>
   </div>
 
-  <div class="grp" style="margin-bottom:0">
-    <div class="grp-title">Mes poches</div>
-    <div id="pockets-list"></div>
-    <div style="margin-top:10px">
-      <button class="cta cta-green" onclick="openOv('pocket')">＋ Nouvelle poche</button>
+  <!-- GRAPHIQUE ÉVOLUTION -->
+  <div class="grp">
+    <div class="grp-title">Évolution 6 mois</div>
+    <div class="grp-card">
+      <div class="sav-chart-wrap" id="sav-chart"></div>
     </div>
+  </div>
+
+  <!-- COMPTES ÉPARGNE -->
+  <div class="grp">
+    <div class="grp-title">Comptes épargne</div>
+    <div id="sav-accounts-list"></div>
+    <button class="add-btn" style="background:rgba(48,209,88,.15);color:var(--green)" onclick="openOv('savaccount')">＋ Ajouter un compte épargne</button>
+  </div>
+
+  <!-- POCHES -->
+  <div class="grp">
+    <div class="grp-title">Poches projets</div>
+    <div id="pockets-list"></div>
+    <button class="add-btn" style="background:rgba(10,132,255,.15);color:var(--blue)" onclick="openOv('pocket')">＋ Nouvelle poche projet</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ RÉGLAGES ═══════════════════════════════════ -->
+<!-- ══════════════════ RÉGLAGES ══════════════════ -->
 <div class="page" id="page-set">
   <div class="topbar"><div class="topbar-title">Réglages</div></div>
 
   <div class="grp">
-    <div class="grp-title">Objectif mensuel</div>
+    <div class="grp-title">Objectifs</div>
     <div class="grp-card">
       <div class="row">
-        <div class="row-body"><div class="row-name">Épargne mensuelle</div></div>
+        <div class="row-body"><div class="row-name">Épargne mensuelle cible</div></div>
         <input class="row-inp" id="s-goal" type="number" min="0" placeholder="500" inputmode="numeric"/>
+        <div class="row-unit">€</div>
+      </div>
+      <div class="row">
+        <div class="row-body"><div class="row-name">Budget mensuel total</div><div class="row-sub">Entrées attendues ce mois</div></div>
+        <input class="row-inp" id="s-budget" type="number" min="0" placeholder="2000" inputmode="numeric"/>
         <div class="row-unit">€</div>
       </div>
     </div>
@@ -327,39 +391,41 @@ canvas{display:block}
     </div>
   </div>
 
+  <!-- BUDGETS PAR CATÉGORIE -->
+  <div class="grp">
+    <div class="grp-title">Budget par catégorie</div>
+    <div class="grp-card" id="budget-cat-settings"></div>
+    <button class="add-btn" style="background:rgba(90,200,250,.15);color:var(--teal)" onclick="openOv('budgetcat')">＋ Ajouter une catégorie budgétée</button>
+  </div>
+
   <div style="padding:0 16px">
     <button class="cta" onclick="saveSet()">Enregistrer</button>
     <button class="cta cta-red" style="margin-top:10px" onclick="resetAll()">Tout effacer</button>
   </div>
 </div>
 
-<!-- ═══════════════ TAB BAR ═══════════════ -->
+<!-- TAB BAR -->
 <nav class="tab-bar">
   <button class="tab on" id="nb-dash" onclick="goto('dash')">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-    Tableau
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Tableau
   </button>
   <button class="tab" id="nb-tx" onclick="goto('tx')">
-    <svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
-    Flux
+    <svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>Flux
   </button>
   <button class="tab" id="nb-rec" onclick="goto('rec')">
-    <svg viewBox="0 0 24 24"><path d="M12 2v10l4 4"/><circle cx="12" cy="12" r="10"/></svg>
-    Récurrents
+    <svg viewBox="0 0 24 24"><path d="M12 2v10l4 4"/><circle cx="12" cy="12" r="10"/></svg>Récurrents
   </button>
   <button class="tab" id="nb-sav" onclick="goto('sav')">
-    <svg viewBox="0 0 24 24"><path d="M20 12V8H4v4M4 8l2-4h12l2 4M12 12v8m-4-4h8"/><circle cx="17" cy="17" r="3"/></svg>
-    Épargne
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-4H9l3-3 3 3h-2v4z"/></svg>Épargne
   </button>
   <button class="tab" id="nb-set" onclick="goto('set')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    Réglages
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Réglages
   </button>
 </nav>
 
 <button class="fab" id="fab" onclick="openOv('tx')">＋</button>
 
-<!-- ══════════ SHEET: OPÉRATION ══════════ -->
+<!-- SHEET: OPÉRATION -->
 <div class="ov" id="ov-tx" onclick="closeOv(event,'ov-tx')">
   <div class="sheet">
     <div class="notch"></div>
@@ -369,30 +435,32 @@ canvas{display:block}
         <div class="seg">
           <button class="sbtn s-in" id="t-in" onclick="setT('in')">＋ Entrée</button>
           <button class="sbtn" id="t-out" onclick="setT('out')">－ Dépense</button>
+          <button class="sbtn" id="t-sav" onclick="setT('sav')">📈 Épargne</button>
         </div>
       </div>
-      <div class="field"><label class="f-lbl">Moyen</label>
+      <div class="field" id="mode-field"><label class="f-lbl">Moyen</label>
         <div class="seg">
           <button class="sbtn s-bank" id="m-bank" onclick="setM('bank')">🏦 Banque</button>
           <button class="sbtn" id="m-cash" onclick="setM('cash')">💵 Cash</button>
         </div>
       </div>
-      <div class="field"><label class="f-lbl">Libellé</label><input class="f-inp" id="fl" placeholder="Salaire, Courses…"/></div>
-      <div class="field"><label class="f-lbl">Catégorie</label>
+      <div class="field"><label class="f-lbl">Libellé</label><input class="f-inp" id="fl" placeholder="Salaire, Courses, Virement épargne…"/></div>
+      <div class="field" id="cat-field"><label class="f-lbl">Catégorie</label>
         <select class="f-sel" id="fc">
           <option>Salaire</option><option>Freelance</option><option>Autre revenu</option>
           <option>Logement</option><option>Alimentation</option><option>Transport</option>
-          <option>Loisirs</option><option>Santé</option><option>Vêtements</option><option>Épargne</option><option>Autre</option>
+          <option>Loisirs</option><option>Santé</option><option>Vêtements</option><option>Autre</option>
         </select>
       </div>
       <div class="field"><label class="f-lbl">Montant (€)</label><input class="f-inp" id="fa" type="number" min="0" step="0.01" placeholder="0,00" inputmode="decimal"/></div>
       <div class="field"><label class="f-lbl">Date</label><input class="f-inp" id="fd" type="date"/></div>
-      <button class="cta" onclick="addTx()">Ajouter l'opération</button>
+      <div class="field"><label class="f-lbl">Note (optionnel)</label><input class="f-inp" id="fn" placeholder="Commentaire libre…"/></div>
+      <button class="cta" onclick="addTx()">Ajouter</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SHEET: CHARGE RÉCURRENTE ══════════ -->
+<!-- SHEET: CHARGE RÉCURRENTE -->
 <div class="ov" id="ov-rec" onclick="closeOv(event,'ov-rec')">
   <div class="sheet">
     <div class="notch"></div>
@@ -407,12 +475,12 @@ canvas{display:block}
         </select>
       </div>
       <div class="field"><label class="f-lbl">Emoji</label><input class="f-inp" id="re" placeholder="🏠" maxlength="2" style="width:64px"/></div>
-      <button class="cta" onclick="addRec()">Ajouter</button>
+      <button class="cta cta-purple" onclick="addRec()">Ajouter</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SHEET: ABONNEMENT ══════════ -->
+<!-- SHEET: ABONNEMENT -->
 <div class="ov" id="ov-abo" onclick="closeOv(event,'ov-abo')">
   <div class="sheet">
     <div class="notch"></div>
@@ -423,17 +491,32 @@ canvas{display:block}
       <div class="field"><label class="f-lbl">Fréquence</label>
         <select class="f-sel" id="af"><option value="mensuel">Mensuel</option><option value="annuel">Annuel</option><option value="hebdo">Hebdomadaire</option></select>
       </div>
+      <div class="field"><label class="f-lbl">Jour de prélèvement (1-31)</label><input class="f-inp" id="ad" type="number" min="1" max="31" placeholder="Ex: 5 pour le 5 du mois" inputmode="numeric"/></div>
       <div class="field"><label class="f-lbl">Emoji</label><input class="f-inp" id="ae" placeholder="📺" maxlength="2" style="width:64px"/></div>
-      <button class="cta" onclick="addAbo()">Ajouter</button>
+      <button class="cta cta-orange" onclick="addAbo()">Ajouter</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SHEET: POCHE ÉPARGNE ══════════ -->
+<!-- SHEET: COMPTE ÉPARGNE -->
+<div class="ov" id="ov-savaccount" onclick="closeOv(event,'ov-savaccount')">
+  <div class="sheet">
+    <div class="notch"></div>
+    <div class="sheet-title">Compte épargne</div>
+    <div class="sheet-body">
+      <div class="field"><label class="f-lbl">Nom</label><input class="f-inp" id="san" placeholder="Livret A, LEP, PEL…"/></div>
+      <div class="field"><label class="f-lbl">Solde actuel (€)</label><input class="f-inp" id="sab" type="number" min="0" step="0.01" placeholder="0,00" inputmode="decimal"/></div>
+      <div class="field"><label class="f-lbl">Emoji</label><input class="f-inp" id="sae" placeholder="🏦" maxlength="2" style="width:64px"/></div>
+      <button class="cta cta-green" onclick="addSavAccount()">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHEET: POCHE PROJET -->
 <div class="ov" id="ov-pocket" onclick="closeOv(event,'ov-pocket')">
   <div class="sheet">
     <div class="notch"></div>
-    <div class="sheet-title">Nouvelle poche</div>
+    <div class="sheet-title">Nouvelle poche projet</div>
     <div class="sheet-body">
       <div class="field"><label class="f-lbl">Nom</label><input class="f-inp" id="pn" placeholder="Vacances, Voiture, Urgences…"/></div>
       <div class="field"><label class="f-lbl">Objectif (€, optionnel)</label><input class="f-inp" id="pt" type="number" min="0" step="0.01" placeholder="1000" inputmode="decimal"/></div>
@@ -443,54 +526,88 @@ canvas{display:block}
   </div>
 </div>
 
-<!-- ══════════ SHEET: MOUVEMENT POCHE ══════════ -->
+<!-- SHEET: MOUVEMENT POCHE -->
 <div class="ov" id="ov-pmove" onclick="closeOv(event,'ov-pmove')">
   <div class="sheet">
     <div class="notch"></div>
     <div class="sheet-title" id="pmove-title">Mouvement</div>
     <div class="sheet-body">
       <div class="field"><label class="f-lbl">Montant (€)</label><input class="f-inp" id="pm-amt" type="number" min="0" step="0.01" placeholder="0,00" inputmode="decimal"/></div>
-      <div class="field"><label class="f-lbl">Note (optionnel)</label><input class="f-inp" id="pm-note" placeholder="Virement, Retrait…"/></div>
-      <button class="cta" id="pmove-cta" onclick="">Confirmer</button>
+      <div class="field"><label class="f-lbl">Note</label><input class="f-inp" id="pm-note" placeholder="Virement, Retrait…"/></div>
+      <button class="cta" id="pmove-cta">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHEET: MOUVEMENT COMPTE ÉPARGNE -->
+<div class="ov" id="ov-samove" onclick="closeOv(event,'ov-samove')">
+  <div class="sheet">
+    <div class="notch"></div>
+    <div class="sheet-title" id="samove-title">Mettre à jour le solde</div>
+    <div class="sheet-body">
+      <div class="field"><label class="f-lbl">Nouveau solde (€)</label><input class="f-inp" id="sa-bal" type="number" min="0" step="0.01" placeholder="0,00" inputmode="decimal"/></div>
+      <button class="cta cta-green" onclick="updateSavAccount()">Mettre à jour</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHEET: BUDGET CATÉGORIE -->
+<div class="ov" id="ov-budgetcat" onclick="closeOv(event,'ov-budgetcat')">
+  <div class="sheet">
+    <div class="notch"></div>
+    <div class="sheet-title">Budget catégorie</div>
+    <div class="sheet-body">
+      <div class="field"><label class="f-lbl">Catégorie</label>
+        <select class="f-sel" id="bc-cat">
+          <option>Logement</option><option>Alimentation</option><option>Transport</option>
+          <option>Loisirs</option><option>Santé</option><option>Vêtements</option><option>Autre</option>
+        </select>
+      </div>
+      <div class="field"><label class="f-lbl">Budget mensuel (€)</label><input class="f-inp" id="bc-amt" type="number" min="0" placeholder="0" inputmode="numeric"/></div>
+      <button class="cta" style="background:var(--teal)" onclick="addBudgetCat()">Ajouter</button>
     </div>
   </div>
 </div>
 
 <script>
 // ════════════════════════════════════════════════════
-// STATE
+// CLÉS LOCALSTORAGE — IMMUABLES
+// b5_tx | b5_abo | b5_rec | b5_pok | b5_cfg
+// + nouvelles clés additives : b5_savac | b5_budcat
 // ════════════════════════════════════════════════════
-const K={tx:'b5_tx',abo:'b5_abo',rec:'b5_rec',pok:'b5_pok',cfg:'b5_cfg'};
-let D={tx:[],abo:[],rec:[],pok:[],cfg:{goal:0,iBank:0,iCash:0}};
+const K={tx:'b5_tx',abo:'b5_abo',rec:'b5_rec',pok:'b5_pok',cfg:'b5_cfg',savac:'b5_savac',budcat:'b5_budcat'};
+let D={tx:[],abo:[],rec:[],pok:[],savac:[],budcat:[],cfg:{goal:0,iBank:0,iCash:0,budget:0}};
 let cm=new Date().getMonth(),cy=new Date().getFullYear();
 let txT='in',txM='bank';
 const MO=['Janv','Févr','Mars','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc'];
 const CAT_COLORS=['#0a84ff','#30d158','#ff9f0a','#ff453a','#bf5af2','#5ac8fa','#ff375f','#5e5ce6','#64d2ff','#ffd60a','#ac8e68'];
 
 function load(){
-  const parse=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||'null')||d;}catch{return d;}};
-  D.tx=parse(K.tx,[]);D.abo=parse(K.abo,[]);D.rec=parse(K.rec,[]);D.pok=parse(K.pok,[]);
-  const c=parse(K.cfg,{});D.cfg={goal:+c.goal||0,iBank:+c.iBank||0,iCash:+c.iCash||0};
+  const p=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||'null')||d;}catch{return d;}};
+  D.tx=p(K.tx,[]);D.abo=p(K.abo,[]);D.rec=p(K.rec,[]);D.pok=p(K.pok,[]);
+  D.savac=p(K.savac,[]);D.budcat=p(K.budcat,[]);
+  const c=p(K.cfg,{});D.cfg={goal:+c.goal||0,iBank:+c.iBank||0,iCash:+c.iCash||0,budget:+c.budget||0};
 }
 function save(){
-  Object.keys(K).forEach(k=>localStorage.setItem(K[k],JSON.stringify(D[k==='cfg'?'cfg':k])));
+  localStorage.setItem(K.tx,JSON.stringify(D.tx));
+  localStorage.setItem(K.abo,JSON.stringify(D.abo));
+  localStorage.setItem(K.rec,JSON.stringify(D.rec));
+  localStorage.setItem(K.pok,JSON.stringify(D.pok));
+  localStorage.setItem(K.savac,JSON.stringify(D.savac));
+  localStorage.setItem(K.budcat,JSON.stringify(D.budcat));
   localStorage.setItem(K.cfg,JSON.stringify(D.cfg));
 }
 
-// ════════════════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════════════════
+// ════════ NAVIGATION ════════
 function goto(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   document.getElementById('page-'+id).classList.add('on');
   document.getElementById('nb-'+id).classList.add('on');
   const fab=document.getElementById('fab');
-  if(id==='set'){fab.style.display='none';}
-  else if(id==='sav'){fab.style.display='none';}
+  if(id==='set'||id==='sav'){fab.style.display='none';}
   else if(id==='rec'){fab.style.display='flex';fab.onclick=()=>openOv('rec');}
   else{fab.style.display='flex';fab.onclick=()=>openOv('tx');}
-  // secondary fab for rec page abo
   if(id==='dash')renderDash();
   if(id==='tx')renderTxPage();
   if(id==='rec')renderRec();
@@ -498,46 +615,46 @@ function goto(id){
   if(id==='set')renderSet();
 }
 
-// ════════════════════════════════════════════════════
-// MONTH
-// ════════════════════════════════════════════════════
+// ════════ MONTH ════════
 function chMo(d){cm+=d;if(cm>11){cm=0;cy++;}if(cm<0){cm=11;cy--;}renderDash();}
-function inMo(t,m=cm,y=cy){const dt=new Date(t.date||t.created||Date.now());return dt.getMonth()===m&&dt.getFullYear()===y;}
+function inMo(t,m=cm,y=cy){const dt=new Date(t.date||Date.now());return dt.getMonth()===m&&dt.getFullYear()===y;}
 
-// ════════════════════════════════════════════════════
-// SHEET
-// ════════════════════════════════════════════════════
+// ════════ SHEET ════════
 function openOv(id){document.getElementById('ov-'+id).classList.add('on');}
 function closeOv(e,id){if(e.target.id===id)document.getElementById(id).classList.remove('on');}
 function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
 
-// ════════════════════════════════════════════════════
-// FORM HELPERS
-// ════════════════════════════════════════════════════
-function setT(t){txT=t;document.getElementById('t-in').className='sbtn'+(t==='in'?' s-in':'');document.getElementById('t-out').className='sbtn'+(t==='out'?' s-out':'');}
-function setM(m){txM=m;document.getElementById('m-bank').className='sbtn'+(m==='bank'?' s-bank':'');document.getElementById('m-cash').className='sbtn'+(m==='cash'?' s-cash':'');}
+// ════════ FORM TYPE/MODE ════════
+function setT(t){
+  txT=t;
+  document.getElementById('t-in').className='sbtn'+(t==='in'?' s-in':'');
+  document.getElementById('t-out').className='sbtn'+(t==='out'?' s-out':'');
+  document.getElementById('t-sav').className='sbtn'+(t==='sav'?' s-sav':'');
+  document.getElementById('mode-field').style.display=t==='sav'?'none':'block';
+  document.getElementById('cat-field').style.display=t==='sav'?'none':'block';
+}
+function setM(m){
+  txM=m;
+  document.getElementById('m-bank').className='sbtn'+(m==='bank'?' s-bank':'');
+  document.getElementById('m-cash').className='sbtn'+(m==='cash'?' s-cash':'');
+}
 
-// ════════════════════════════════════════════════════
-// TRANSACTIONS
-// ════════════════════════════════════════════════════
+// ════════ TRANSACTIONS ════════
 function addTx(){
-  const l=v('fl'),a=pf('fa'),d=v('fd'),c=v('fc');
+  const l=v('fl'),a=pf('fa'),d=v('fd'),c=txT==='sav'?'Épargne':v('fc'),n=v('fn');
   if(!l||!a||!d){alert('Remplis tous les champs.');return;}
-  D.tx.unshift({id:Date.now(),label:l,amount:a,date:d,type:txT,mode:txM,cat:c});
-  save();clear('fl','fa');closeAllOv();renderDash();renderTxPage();
+  D.tx.unshift({id:Date.now(),label:l,amount:a,date:d,type:txT==='sav'?'out':txT,mode:txT==='sav'?'bank':txM,cat:c,note:n,isSav:txT==='sav'});
+  save();clear('fl','fa','fn');closeAllOv();renderDash();renderTxPage();
 }
 function delTx(id){if(!confirm('Supprimer ?'))return;D.tx=D.tx.filter(t=>t.id!==id);save();renderTxPage();renderDash();}
 
-// ════════════════════════════════════════════════════
-// RÉCURRENTS (charges fixes)
-// ════════════════════════════════════════════════════
+// ════════ RÉCURRENTS ════════
 function recMo(r){
-  const a=r.amount;
-  if(r.freq==='mensuel')return a;
-  if(r.freq==='annuel')return a/12;
-  if(r.freq==='trimestriel')return a/3;
-  if(r.freq==='hebdo')return a*4.33;
-  return a;
+  if(r.freq==='mensuel')return r.amount;
+  if(r.freq==='annuel')return r.amount/12;
+  if(r.freq==='trimestriel')return r.amount/3;
+  if(r.freq==='hebdo')return r.amount*4.33;
+  return r.amount;
 }
 function addRec(){
   const n=v('rn'),a=pf('ra'),f=v('rf'),e=v('re')||'📋';
@@ -547,21 +664,49 @@ function addRec(){
 }
 function delRec(id){if(!confirm('Supprimer ?'))return;D.rec=D.rec.filter(r=>r.id!==id);save();renderRec();renderDash();}
 
-// ════════════════════════════════════════════════════
-// ABONNEMENTS
-// ════════════════════════════════════════════════════
+// ════════ ABONNEMENTS ════════
 function aboMo(a){return a.freq==='mensuel'?a.amount:a.freq==='annuel'?a.amount/12:a.amount*4.33;}
+function daysUntilPrelevement(day){
+  if(!day)return null;
+  const today=new Date();
+  const todayD=today.getDate();
+  let diff=day-todayD;
+  if(diff<0){const next=new Date(today.getFullYear(),today.getMonth()+1,day);diff=Math.ceil((next-today)/(1000*60*60*24));}
+  return diff;
+}
 function addAbo(){
-  const n=v('an'),a=pf('aa'),f=v('af'),e=v('ae')||'📦';
+  const n=v('an'),a=pf('aa'),f=v('af'),e=v('ae')||'📦',d=parseInt(v('ad'))||null;
   if(!n||!a){alert('Remplis les champs.');return;}
-  D.abo.push({id:Date.now(),name:n,amount:a,freq:f,emoji:e});
-  save();clear('an','aa');closeAllOv();renderRec();renderDash();
+  D.abo.push({id:Date.now(),name:n,amount:a,freq:f,emoji:e,day:d});
+  save();clear('an','aa','ad');closeAllOv();renderRec();renderDash();
 }
 function delAbo(id){if(!confirm('Supprimer ?'))return;D.abo=D.abo.filter(a=>a.id!==id);save();renderRec();renderDash();}
 
-// ════════════════════════════════════════════════════
-// ÉPARGNE - POCHES
-// ════════════════════════════════════════════════════
+// ════════ COMPTES ÉPARGNE ════════
+let activeSavAccount=null;
+function addSavAccount(){
+  const n=v('san'),b=pf('sab'),e=v('sae')||'🏦';
+  if(!n){alert('Donne un nom.');return;}
+  D.savac.push({id:Date.now(),name:n,balance:b,emoji:e});
+  save();clear('san','sab');closeAllOv();renderSav();renderDash();
+}
+function openSavAccountMove(id){
+  activeSavAccount=id;
+  const acc=D.savac.find(a=>a.id===id);
+  document.getElementById('samove-title').textContent='Mettre à jour — '+acc.name;
+  document.getElementById('sa-bal').value=acc.balance||'';
+  openOv('samove');
+}
+function updateSavAccount(){
+  const b=pf('sa-bal');
+  const acc=D.savac.find(a=>a.id===activeSavAccount);
+  if(!acc)return;
+  acc.balance=b;
+  save();clear('sa-bal');closeAllOv();renderSav();renderDash();
+}
+function delSavAccount(id){if(!confirm('Supprimer ce compte ?'))return;D.savac=D.savac.filter(a=>a.id!==id);save();renderSav();renderDash();}
+
+// ════════ POCHES ════════
 let activePocket=null,pMoveDir='add';
 function addPocket(){
   const n=v('pn'),t=pf('pt')||0,e=v('pe')||'💰';
@@ -571,7 +716,8 @@ function addPocket(){
 }
 function openPocketMove(id,dir){
   activePocket=id;pMoveDir=dir;
-  document.getElementById('pmove-title').textContent=dir==='add'?'Ajouter de l\'argent':'Retirer de l\'argent';
+  const p=D.pok.find(p=>p.id===id);
+  document.getElementById('pmove-title').textContent=dir==='add'?'Ajouter dans '+p.name:'Retirer de '+p.name;
   document.getElementById('pmove-cta').textContent=dir==='add'?'Ajouter ✓':'Retirer ✓';
   document.getElementById('pmove-cta').onclick=confirmPocketMove;
   document.getElementById('pmove-cta').className='cta '+(dir==='add'?'cta-green':'cta-red');
@@ -582,30 +728,44 @@ function confirmPocketMove(){
   if(!a){alert('Montant requis.');return;}
   const pok=D.pok.find(p=>p.id===activePocket);
   if(!pok)return;
-  if(pMoveDir==='sub'&&a>pok.balance){alert('Solde insuffisant dans cette poche.');return;}
+  if(pMoveDir==='sub'&&a>pok.balance){alert('Solde insuffisant.');return;}
   pok.balance+=(pMoveDir==='add'?1:-1)*a;
   pok.moves.unshift({dir:pMoveDir,amount:a,note,date:new Date().toISOString()});
   save();clear('pm-amt','pm-note');closeAllOv();renderSav();renderDash();
 }
-function delPocket(id){if(!confirm('Supprimer cette poche ?'))return;D.pok=D.pok.filter(p=>p.id!==id);save();renderSav();renderDash();}
+function delPocket(id){if(!confirm('Supprimer ?'))return;D.pok=D.pok.filter(p=>p.id!==id);save();renderSav();renderDash();}
 
-// ════════════════════════════════════════════════════
-// SETTINGS
-// ════════════════════════════════════════════════════
+// ════════ BUDGET CATÉGORIES ════════
+function addBudgetCat(){
+  const cat=v('bc-cat'),amt=pf('bc-amt');
+  if(!amt){alert('Montant requis.');return;}
+  const existing=D.budcat.find(b=>b.cat===cat);
+  if(existing){existing.amount=amt;}else{D.budcat.push({cat,amount:amt});}
+  save();clear('bc-amt');closeAllOv();renderSet();renderDash();
+}
+function delBudgetCat(cat){D.budcat=D.budcat.filter(b=>b.cat!==cat);save();renderSet();renderDash();}
+
+// ════════ SETTINGS ════════
 function saveSet(){
-  D.cfg.goal=pf('s-goal')||0;D.cfg.iBank=pf('s-bank')||0;D.cfg.iCash=pf('s-cash')||0;
+  D.cfg.goal=pf('s-goal')||0;D.cfg.iBank=pf('s-bank')||0;
+  D.cfg.iCash=pf('s-cash')||0;D.cfg.budget=pf('s-budget')||0;
   save();renderDash();alert('✓ Enregistré');
 }
 function renderSet(){
   document.getElementById('s-goal').value=D.cfg.goal||'';
   document.getElementById('s-bank').value=D.cfg.iBank||'';
   document.getElementById('s-cash').value=D.cfg.iCash||'';
+  document.getElementById('s-budget').value=D.cfg.budget||'';
+  const el=document.getElementById('budget-cat-settings');
+  el.innerHTML=D.budcat.length?D.budcat.map(b=>`<div class="row">
+    <div class="row-body"><div class="row-name">${b.cat}</div></div>
+    <div class="row-val c-teal">${fe(b.amount)}/mois</div>
+    <button class="row-del" onclick="delBudgetCat('${b.cat}')">✕</button>
+  </div>`).join(''):'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune catégorie</div>';
 }
-function resetAll(){if(!confirm('Effacer TOUTES les données ?'))return;D={tx:[],abo:[],rec:[],pok:[],cfg:{goal:0,iBank:0,iCash:0}};save();renderDash();renderTxPage();renderRec();renderSav();}
+function resetAll(){if(!confirm('Effacer TOUTES les données ?'))return;D={tx:[],abo:[],rec:[],pok:[],savac:[],budcat:[],cfg:{goal:0,iBank:0,iCash:0,budget:0}};save();renderDash();renderTxPage();renderRec();renderSav();}
 
-// ════════════════════════════════════════════════════
-// RENDER DASHBOARD
-// ════════════════════════════════════════════════════
+// ════════ RENDER DASHBOARD ════════
 function renderDash(){
   document.getElementById('mlabel').textContent=MO[cm]+' '+cy;
   const moTx=D.tx.filter(t=>inMo(t));
@@ -614,7 +774,9 @@ function renderDash(){
   const net=mIn-mOut;
   const bk=D.cfg.iBank+sum(D.tx.filter(t=>t.type==='in'&&t.mode==='bank'))-sum(D.tx.filter(t=>t.type==='out'&&t.mode==='bank'));
   const cs=D.cfg.iCash+sum(D.tx.filter(t=>t.type==='in'&&t.mode==='cash'))-sum(D.tx.filter(t=>t.type==='out'&&t.mode==='cash'));
-  const totalSav=D.pok.reduce((s,p)=>s+p.balance,0);
+  const totalSavAcc=D.savac.reduce((s,a)=>s+a.balance,0);
+  const totalPok=D.pok.reduce((s,p)=>s+p.balance,0);
+  const totalSav=totalSavAcc+totalPok;
   const totalRec=D.rec.reduce((s,r)=>s+recMo(r),0)+D.abo.reduce((s,a)=>s+aboMo(a),0);
   const totalAbo=D.abo.reduce((s,a)=>s+aboMo(a),0);
 
@@ -622,231 +784,265 @@ function renderDash(){
   setText('h-bank',fe(bk));setText('h-cash',fe(cs));
   setText('h-sav',fe(totalSav));setText('h-rec',fe(totalRec));
   setText('k-in',fe(mIn));setText('k-out',fe(mOut));
-  const netEl=document.getElementById('k-net');
-  netEl.textContent=fe(net);netEl.className='kpi-v '+(net>=0?'c-green':'c-red');
-  setText('k-abo',fe(totalAbo));
+  setText('k-vital',fe(totalRec));
 
-  // Goal
+  // Reste à dépenser
+  const budget=D.cfg.budget;
+  const resteEl=document.getElementById('k-reste');
+  const resteSubEl=document.getElementById('k-reste-sub');
+  if(budget>0){
+    const reste=budget-mOut-totalRec;
+    resteEl.textContent=fe(reste);
+    resteEl.className='kpi-v '+(reste>=0?'c-green':'c-red');
+    resteSubEl.textContent=reste>=0?'encore disponible':'dépassement !';
+  }else{
+    resteEl.textContent='—';resteEl.className='kpi-v';
+    resteSubEl.textContent='Définir dans Réglages';
+  }
+
+  // Objectif épargne
   const g=D.cfg.goal;const pct=g>0?Math.min(100,Math.round(net/g*100)):0;
   setText('g-pct',g>0?pct+'%':'—');
   const bar=document.getElementById('g-bar');
   bar.style.width=pct+'%';
   bar.style.background=pct>=100?'var(--green)':pct>=60?'var(--blue)':'var(--red)';
-  setText('g-sub',g>0?`Objectif ${fe(g)} · Flux net ${fe(net)}`:'Aucun objectif — Réglages');
+  setText('g-sub',g>0?`Objectif ${fe(g)} · Flux net ${fe(net)}`:'Définir dans Réglages');
+  setText('g-reste',g>0&&net<g?`Encore ${fe(g-net)} à économiser`:'');
+
+  // ALERTES PRÉLÈVEMENTS
+  const alertEl=document.getElementById('alert-prel');
+  const soon=D.abo.filter(a=>a.day&&daysUntilPrelevement(a.day)<=3);
+  if(soon.length){
+    alertEl.style.display='block';
+    alertEl.innerHTML=`<div class="alert-banner">
+      <div class="alert-banner-title">⚠️ Prélèvements dans moins de 3 jours</div>
+      ${soon.map(a=>`<div class="alert-banner-item">${a.emoji} ${a.name} — ${fe(a.amount)} le ${a.day} du mois</div>`).join('')}
+    </div>`;
+  }else{alertEl.style.display='none';}
+
+  // PRÉVISION 15 JOURS
+  const today=new Date();
+  const in15=D.abo.filter(a=>{
+    if(!a.day)return false;
+    const d=daysUntilPrelevement(a.day);
+    return d!==null&&d<=15;
+  });
+  const prelevSum=in15.reduce((s,a)=>s+a.amount,0);
+  const prevSolde=(bk+cs)-prelevSum;
+  setText('prev-amount',fe(prevSolde));
+  document.getElementById('prev-sub').textContent=in15.length>0
+    ?`${in15.length} prélèvement(s) à venir: −${fe(prelevSum)}`
+    :'Aucun prélèvement dans les 15 prochains jours';
+  document.getElementById('prev-amount').className='prev-amount '+(prevSolde>=0?'c-blue':'c-red');
+
+  // BUDGET CATÉGORIES
+  const budWrap=document.getElementById('budgets-dash-wrap');
+  const budEl=document.getElementById('budgets-dash');
+  if(D.budcat.length){
+    budWrap.style.display='block';
+    budEl.innerHTML=D.budcat.map(b=>{
+      const spent=sum(moTx.filter(t=>t.type==='out'&&t.cat===b.cat));
+      const pct=b.amount>0?Math.min(100,Math.round(spent/b.amount*100)):0;
+      const color=pct>=100?'var(--red)':pct>=80?'var(--orange)':'var(--green)';
+      return `<div class="budget-cat-row">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between">
+            <span style="font-size:14px">${b.cat}</span>
+            <span style="font-size:13px;font-weight:600;color:${color}">${fe(spent)} / ${fe(b.amount)}</span>
+          </div>
+          <div class="budget-cat-bar"><div class="budget-cat-fill" style="width:${pct}%;background:${color}"></div></div>
+        </div>
+      </div>`;
+    }).join('');
+  }else{budWrap.style.display='none';}
+
+  // Charts
+  renderCashflow();
+  renderDonut(moTx.filter(t=>t.type==='out'));
 
   // Recent
   const rc=document.getElementById('recent-card');
   const r=D.tx.slice(0,5);
   rc.innerHTML=r.length?r.map(t=>txRow(t,false)).join(''):'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune opération</div>';
-
-  // Charts
-  renderCashflow();
-  renderDonut(moTx.filter(t=>t.type==='out'));
 }
 
-// ════════════════════════════════════════════════════
-// CASHFLOW CHART (6 mois)
-// ════════════════════════════════════════════════════
+// ════════ CASHFLOW CHART ════════
 function renderCashflow(){
   const months=[];
-  for(let i=5;i>=0;i--){
-    let m=cm-i,y=cy;
-    if(m<0){m+=12;y--;}
-    months.push({m,y,label:MO[m].slice(0,3)});
-  }
-  const data=months.map(({m,y,label})=>({
-    label,
-    in:sum(D.tx.filter(t=>t.type==='in'&&inMo(t,m,y))),
-    out:sum(D.tx.filter(t=>t.type==='out'&&inMo(t,m,y)))
-  }));
+  for(let i=5;i>=0;i--){let m=cm-i,y=cy;if(m<0){m+=12;y--;}months.push({m,y,label:MO[m].slice(0,3)});}
+  const data=months.map(({m,y,label})=>({label,in:sum(D.tx.filter(t=>t.type==='in'&&inMo(t,m,y))),out:sum(D.tx.filter(t=>t.type==='out'&&inMo(t,m,y)))}));
   const maxV=Math.max(...data.map(d=>Math.max(d.in,d.out)),1);
-  const container=document.getElementById('cf-bars');
-  container.innerHTML=data.map(d=>{
-    const inH=Math.round((d.in/maxV)*88);
-    const outH=Math.round((d.out/maxV)*88);
-    return `<div class="cf-bar-col">
-      <div class="cf-bars">
-        <div class="cf-bar-in" style="height:${Math.max(inH,2)}px"></div>
-        <div class="cf-bar-out" style="height:${Math.max(outH,2)}px"></div>
-      </div>
-      <div class="cf-bar-lbl">${d.label}</div>
-    </div>`;
+  document.getElementById('cf-bars').innerHTML=data.map(d=>{
+    const inH=Math.round((d.in/maxV)*88);const outH=Math.round((d.out/maxV)*88);
+    return `<div class="cf-bar-col"><div class="cf-bars"><div class="cf-bar-in" style="height:${Math.max(inH,2)}px"></div><div class="cf-bar-out" style="height:${Math.max(outH,2)}px"></div></div><div class="cf-bar-lbl">${d.label}</div></div>`;
   }).join('');
 }
 
-// ════════════════════════════════════════════════════
-// DONUT CHART
-// ════════════════════════════════════════════════════
+// ════════ DONUT CHART ════════
 function renderDonut(outTx){
   const canvas=document.getElementById('donut-canvas');
   const ctx=canvas.getContext('2d');
   const legend=document.getElementById('donut-legend');
   ctx.clearRect(0,0,140,140);
-
-  // Group by cat
-  const cats={};
-  outTx.forEach(t=>{cats[t.cat]=(cats[t.cat]||0)+t.amount;});
+  const cats={};outTx.forEach(t=>{cats[t.cat]=(cats[t.cat]||0)+t.amount;});
   const entries=Object.entries(cats).sort((a,b)=>b[1]-a[1]);
   const total=entries.reduce((s,[,v])=>s+v,0);
-
   if(!total){
-    ctx.fillStyle='rgba(255,255,255,.08)';
-    ctx.beginPath();ctx.arc(70,70,56,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,.15)';
-    ctx.beginPath();ctx.arc(70,70,28,0,Math.PI*2);ctx.fill();
-    legend.innerHTML='<span style="font-size:12px;color:var(--t3)">Aucune dépense</span>';
-    return;
+    ctx.fillStyle='rgba(255,255,255,.08)';ctx.beginPath();ctx.arc(70,70,56,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.15)';ctx.beginPath();ctx.arc(70,70,28,0,Math.PI*2);ctx.fill();
+    legend.innerHTML='<span style="font-size:12px;color:var(--t3)">Aucune dépense</span>';return;
   }
-
-  let startAngle=-Math.PI/2;
-  const gap=0.03;
-  entries.forEach(([cat,val],i)=>{
+  let start=-Math.PI/2;const gap=0.03;
+  entries.forEach(([,val],i)=>{
     const slice=(val/total)*(Math.PI*2)-gap;
-    ctx.beginPath();
-    ctx.moveTo(70,70);
-    ctx.arc(70,70,56,startAngle,startAngle+slice);
-    ctx.closePath();
-    ctx.fillStyle=CAT_COLORS[i%CAT_COLORS.length];
-    ctx.fill();
-    startAngle+=slice+gap;
+    ctx.beginPath();ctx.moveTo(70,70);ctx.arc(70,70,56,start,start+slice);ctx.closePath();
+    ctx.fillStyle=CAT_COLORS[i%CAT_COLORS.length];ctx.fill();start+=slice+gap;
   });
-  // hole
-  ctx.beginPath();ctx.arc(70,70,30,0,Math.PI*2);
-  ctx.fillStyle='#1c1c1e';ctx.fill();
-  // center text
-  ctx.fillStyle='rgba(255,255,255,.9)';
-  ctx.font='bold 14px -apple-system,sans-serif';
+  ctx.beginPath();ctx.arc(70,70,30,0,Math.PI*2);ctx.fillStyle='#1c1c1e';ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.9)';ctx.font='bold 13px -apple-system,sans-serif';
   ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillText(fe(total).replace(',00',''),70,70);
-
   legend.innerHTML=entries.slice(0,6).map(([cat,val],i)=>`
     <div style="display:flex;align-items:center;gap:6px">
       <div style="width:9px;height:9px;border-radius:50%;background:${CAT_COLORS[i%CAT_COLORS.length]};flex-shrink:0"></div>
-      <span style="font-size:12px;color:var(--t2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cat}</span>
-      <span style="font-size:12px;font-weight:600;color:var(--t1)">${Math.round(val/total*100)}%</span>
+      <span style="font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cat}</span>
+      <span style="font-size:12px;font-weight:600">${Math.round(val/total*100)}%</span>
     </div>`).join('');
 }
 
-// ════════════════════════════════════════════════════
-// RENDER MOUVEMENTS
-// ════════════════════════════════════════════════════
+// ════════ RENDER MOUVEMENTS ════════
 function renderTxPage(){
   const el=document.getElementById('tx-card');
   el.innerHTML=D.tx.length?D.tx.map(t=>txRow(t,true)).join(''):'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune opération</div>';
 }
-
 function txRow(t,del){
-  const ic=t.type==='in'?{bg:'rgba(48,209,88,.15)',c:'var(--green)',s:'↑'}:{bg:'rgba(255,69,58,.15)',c:'var(--red)',s:'↓'};
+  const isSav=t.isSav;
+  const ic=isSav?{bg:'rgba(48,209,88,.12)',c:'var(--green)',s:'📈'}:t.type==='in'?{bg:'rgba(48,209,88,.15)',c:'var(--green)',s:'↑'}:{bg:'rgba(255,69,58,.15)',c:'var(--red)',s:'↓'};
+  const sign=t.type==='in'?'+':'−';
+  const valC=t.type==='in'?'var(--green)':'var(--red)';
+  const modeLabel=isSav?'Épargne':t.mode==='bank'?'Banque':'Cash';
+  const modeClass=isSav?'pill-sav':t.mode==='bank'?'pill-bank':'pill-cash';
   return `<div class="row">
-    <div class="row-ico" style="background:${ic.bg};color:${ic.c};font-weight:700;font-size:17px">${ic.s}</div>
+    <div class="row-ico" style="background:${ic.bg};color:${ic.c};font-weight:700;font-size:${isSav?'17':'17'}px">${ic.s}</div>
     <div class="row-body">
       <div class="row-name">${t.label}</div>
-      <div class="row-sub">${t.cat} · <span class="pill pill-${t.mode}">${t.mode==='bank'?'Banque':'Cash'}</span></div>
+      <div class="row-sub">${t.cat} · <span class="pill ${modeClass}">${modeLabel}</span>${t.note?` · <em style="color:var(--t3)">${t.note}</em>`:''}</div>
     </div>
     <div class="row-right">
-      <div class="row-val" style="color:${ic.c}">${t.type==='in'?'+':'−'}${fe(t.amount)}</div>
+      <div class="row-val" style="color:${valC}">${sign}${fe(t.amount)}</div>
       <div class="row-detail">${fd(t.date)}</div>
     </div>
     ${del?`<button class="row-del" onclick="delTx(${t.id})">✕</button>`:''}
   </div>`;
 }
 
-// ════════════════════════════════════════════════════
-// RENDER RÉCURRENTS
-// ════════════════════════════════════════════════════
+// ════════ RENDER RÉCURRENTS ════════
 function renderRec(){
   const totalRec=D.rec.reduce((s,r)=>s+recMo(r),0);
   const totalAbo=D.abo.reduce((s,a)=>s+aboMo(a),0);
-  setText('rec-mo',fe(totalRec));setText('rec-abo',fe(totalAbo));
-
-  // Bouton FAB secondaire pour abonnement dans rec page
+  const vital=totalRec+totalAbo;
+  setText('vital-total',fe(vital));setText('vital-rec',fe(totalRec));setText('vital-abo',fe(totalAbo));
   const rc=document.getElementById('rec-card');
   rc.innerHTML=D.rec.length?D.rec.map(r=>`<div class="row">
     <div class="row-ico" style="background:rgba(191,90,242,.15);font-size:17px">${r.emoji}</div>
-    <div class="row-body">
-      <div class="row-name">${r.name}</div>
-      <div class="row-sub">${cap(r.freq)} · ${fe(recMo(r))}/mois</div>
-    </div>
-    <div class="row-right">
-      <div class="row-val c-purple">−${fe(r.amount)}</div>
-      <div class="row-detail">${cap(r.freq)}</div>
-    </div>
+    <div class="row-body"><div class="row-name">${r.name}</div><div class="row-sub">${cap(r.freq)} · ${fe(recMo(r))}/mois</div></div>
+    <div class="row-right"><div class="row-val c-purple">−${fe(r.amount)}</div></div>
     <button class="row-del" onclick="delRec(${r.id})">✕</button>
   </div>`).join(''):'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune charge</div>';
 
   const ac=document.getElementById('abo-card');
-  ac.innerHTML=D.abo.length?D.abo.map(a=>`<div class="row">
-    <div class="row-ico" style="background:rgba(255,159,10,.15);font-size:17px">${a.emoji}</div>
-    <div class="row-body">
-      <div class="row-name">${a.name}</div>
-      <div class="row-sub">${cap(a.freq)} · ${fe(aboMo(a))}/mois</div>
-    </div>
-    <div class="row-right">
-      <div class="row-val c-orange">−${fe(a.amount)}</div>
-      <div class="row-detail">${cap(a.freq)}</div>
-    </div>
-    <button class="row-del" onclick="delAbo(${a.id})">✕</button>
-  `).join('')
-:'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucun abonnement</div>';
+  const today=new Date().getDate();
+  ac.innerHTML=D.abo.length?D.abo.map(a=>{
+    const days=a.day?daysUntilPrelevement(a.day):null;
+    const badge=days===null?'':(days<=3?`<span class="prel-soon">Dans ${days}j</span>`:`<span class="prel-ok">Le ${a.day}</span>`);
+    return `<div class="row">
+      <div class="row-ico" style="background:rgba(255,159,10,.15);font-size:17px">${a.emoji}</div>
+      <div class="row-body"><div class="row-name">${a.name} ${badge}</div><div class="row-sub">${cap(a.freq)} · ${fe(aboMo(a))}/mois${a.day?' · prélèvement le '+a.day:''}</div></div>
+      <div class="row-right"><div class="row-val c-orange">−${fe(a.amount)}</div></div>
+      <button class="row-del" onclick="delAbo(${a.id})">✕</button>
+    </div>`;
+  }).join(''):'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucun abonnement</div>';
 }
 
-// ════════════════════════════════════════════════════
-// RENDER ÉPARGNE
-// ════════════════════════════════════════════════════
+// ════════ RENDER ÉPARGNE ════════
 function renderSav(){
-  const total=D.pok.reduce((s,p)=>s+p.balance,0);
-  setText('sav-total',fe(total));
+  const totalSavAcc=D.savac.reduce((s,a)=>s+a.balance,0);
+  const totalPok=D.pok.reduce((s,p)=>s+p.balance,0);
+  setText('sav-total',fe(totalSavAcc+totalPok));
+
+  // Graphique évolution épargne (simule les 6 derniers mois basé sur les virements)
+  renderSavChart();
+
+  // Comptes épargne
+  const acEl=document.getElementById('sav-accounts-list');
+  acEl.innerHTML=D.savac.length?D.savac.map(a=>`<div class="sav-account">
+    <div style="font-size:28px">${a.emoji}</div>
+    <div class="sav-account-info">
+      <div class="sav-account-name">${a.name}</div>
+      <div class="sav-account-type">Compte épargne</div>
+    </div>
+    <div style="text-align:right">
+      <div class="sav-account-bal">${fe(a.balance)}</div>
+      <button style="background:none;border:none;color:var(--blue);font-size:12px;cursor:pointer;margin-top:4px" onclick="openSavAccountMove(${a.id})">Mettre à jour</button>
+    </div>
+    <button class="row-del" onclick="delSavAccount(${a.id})">✕</button>
+  </div>`).join(''):'<div style="padding:16px;text-align:center;color:var(--t3);font-size:14px">Aucun compte épargne</div>';
+
+  // Poches
   const el=document.getElementById('pockets-list');
-  if(!D.pok.length){
-    el.innerHTML='<div style="padding:24px;text-align:center;color:var(--t3);font-size:14px">Aucune poche — crée-en une !</div>';
-    return;
-  }
-  el.innerHTML=D.pok.map(p=>{
+  el.innerHTML=D.pok.length?D.pok.map(p=>{
     const pct=p.target>0?Math.min(100,Math.round(p.balance/p.target*100)):null;
     const barColor=pct===null?'var(--blue)':pct>=100?'var(--green)':pct>=50?'var(--blue)':'var(--orange)';
     return `<div class="pocket">
       <div class="pocket-head">
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:28px">${p.emoji}</span>
-          <div>
-            <div class="pocket-name">${p.name}</div>
-            ${p.target>0?`<div class="pocket-target">Objectif ${fe(p.target)}</div>`:''}
-          </div>
+          <div><div class="pocket-name">${p.name}</div>${p.target>0?`<div style="font-size:12px;color:var(--t3)">Objectif ${fe(p.target)}</div>`:''}</div>
         </div>
-        <button class="pocket-btn del" onclick="delPocket(${p.id})" style="background:none;color:var(--t3)">✕</button>
+        <button class="row-del" onclick="delPocket(${p.id})">✕</button>
       </div>
-      <div class="pocket-amt c-green">${fe(p.balance)}</div>
+      <div style="font-size:22px;font-weight:700;color:var(--green)">${fe(p.balance)}</div>
       ${p.target>0?`<div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${barColor}"></div></div>
-      <div class="pocket-meta"><span>${pct}% atteint</span><span>Reste ${fe(Math.max(0,p.target-p.balance))}</span></div>`:''}
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t3)"><span>${pct}% atteint</span><span>Reste ${fe(Math.max(0,p.target-p.balance))}</span></div>`:''}
       <div class="pocket-actions">
         <button class="pocket-btn add" onclick="openPocketMove(${p.id},'add')">＋ Ajouter</button>
         <button class="pocket-btn sub" onclick="openPocketMove(${p.id},'sub')">－ Retirer</button>
       </div>
-      ${p.moves.length?`<div style="margin-top:10px;border-top:.5px solid var(--sep);padding-top:10px">
-        ${p.moves.slice(0,3).map(mv=>`<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t3);padding:2px 0">
-          <span>${mv.note||'Mouvement'} · ${fd(mv.date)}</span>
-          <span style="color:${mv.dir==='add'?'var(--green)':'var(--red)'};font-weight:600">${mv.dir==='add'?'+':'−'}${fe(mv.amount)}</span>
-        </div>`).join('')}
-      </div>`:''}
+      ${p.moves.length?`<div style="margin-top:10px;border-top:.5px solid var(--sep);padding-top:8px">${p.moves.slice(0,3).map(mv=>`<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t3);padding:2px 0"><span>${mv.note||'Mouvement'} · ${fd(mv.date)}</span><span style="color:${mv.dir==='add'?'var(--green)':'var(--red)'};font-weight:600">${mv.dir==='add'?'+':'−'}${fe(mv.amount)}</span></div>`).join('')}</div>`:''}
     </div>`;
+  }).join(''):'<div style="padding:16px;text-align:center;color:var(--t3);font-size:14px">Aucune poche projet</div>';
+}
+
+// ════════ SAVINGS CHART ════════
+function renderSavChart(){
+  // Calcule le total épargne cumulé par mois (virements épargne dans les tx)
+  const months=[];
+  for(let i=5;i>=0;i--){let m=cm-i,y=cy;if(m<0){m+=12;y--;}months.push({m,y,label:MO[m].slice(0,3)});}
+  const baseline=D.savac.reduce((s,a)=>s+a.balance,0)+D.pok.reduce((s,p)=>s+p.balance,0);
+  // On simule en utilisant les virements enregistrés
+  const data=months.map(({m,y,label})=>{
+    const savTx=D.tx.filter(t=>t.isSav&&inMo(t,m,y));
+    return{label,val:sum(savTx)};
+  });
+  const maxV=Math.max(...data.map(d=>d.val),1);
+  const el=document.getElementById('sav-chart');
+  el.innerHTML=data.map(d=>{
+    const h=Math.round((d.val/maxV)*76);
+    return `<div class="sav-bar-col"><div class="sav-bar" style="height:${Math.max(h,2)}px"></div><div class="sav-bar-lbl">${d.label}</div></div>`;
   }).join('');
 }
 
-// ════════════════════════════════════════════════════
-// UTILS
-// ════════════════════════════════════════════════════
+// ════════ UTILS ════════
 function v(id){return document.getElementById(id).value;}
 function pf(id){return parseFloat(document.getElementById(id).value)||0;}
-function setText(id,val){document.getElementById(id).textContent=val;}
-function clear(...ids){ids.forEach(id=>document.getElementById(id).value='');}
+function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+function clear(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
 function sum(arr){return arr.reduce((s,t)=>s+(t.amount||0),0);}
 function fe(n){if(isNaN(n))return'—';return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202f').replace('.',',')+'\u202f€';}
 function fd(s){if(!s)return'';const d=new Date(s);return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});}
 function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
 
-// ════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════
+// ════════ INIT ════════
 load();
 document.getElementById('fd').value=new Date().toISOString().split('T')[0];
 renderDash();
