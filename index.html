@@ -261,12 +261,18 @@ canvas{display:block}
     <div class="grp-card" id="rec-card">
       <div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucune charge</div>
     </div>
+    <div style="margin-top:10px">
+      <button class="cta" style="background:rgba(191,90,242,.25);color:var(--purple)" onclick="openOv('rec')">＋ Ajouter une charge fixe</button>
+    </div>
   </div>
 
   <div class="grp">
     <div class="grp-title">Abonnements</div>
     <div class="grp-card" id="abo-card">
       <div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucun abonnement</div>
+    </div>
+    <div style="margin-top:10px">
+      <button class="cta" style="background:rgba(255,159,10,.2);color:var(--orange)" onclick="openOv('abo')">＋ Ajouter un abonnement</button>
     </div>
   </div>
 </div>
@@ -780,8 +786,8 @@ function renderRec(){
       <div class="row-detail">${cap(a.freq)}</div>
     </div>
     <button class="row-del" onclick="delAbo(${a.id})">✕</button>
-  </div>`).join('')+'<div class="row" style="padding:10px 16px"><button class="cta" style="background:var(--s2);color:var(--t2);font-size:14px;padding:11px" onclick="openOv(\'abo\')">＋ Ajouter un abonnement</button></div>'
-    :'<div class="row" style="flex-direction:column;gap:10px;padding:14px 16px"><div style="color:var(--t3);font-size:14px">Aucun abonnement</div><button class="cta" style="background:var(--s2);color:var(--t2);font-size:14px;padding:11px" onclick="openOv(\'abo\')">＋ Ajouter un abonnement</button></div>';
+  `).join('')
+:'<div class="row" style="justify-content:center;color:var(--t3);font-size:14px">Aucun abonnement</div>';
 }
 
 // ════════════════════════════════════════════════════
