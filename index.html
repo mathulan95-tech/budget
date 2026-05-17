@@ -641,9 +641,10 @@ function selectColor(el){
 
 // ── COMPTES BANCAIRES ──
 function accBal(a){
-  const ins=sum(D.tx.filter(t=>t.type==='in'&&t.acc===a.id));
-  const outs=sum(D.tx.filter(t=>(t.type==='out'||t.isSav||t.isVir)&&t.acc===a.id));
-  const virIn=sum(D.tx.filter(t=>t.isVir&&t.acc2===a.id));
+  const id=String(a.id);
+  const ins=sum(D.tx.filter(t=>t.type==='in'&&String(t.acc)===id));
+  const outs=sum(D.tx.filter(t=>(t.type==='out'||t.isSav||t.isVir)&&String(t.acc)===id));
+  const virIn=sum(D.tx.filter(t=>t.isVir&&String(t.acc2)===id));
   return (a.initBal||0)+ins-outs+virIn;
 }
 function addAccount(){
@@ -922,7 +923,9 @@ function renderDash(){
   const net=mIn-mOut;
   // Soldes comptes bancaires
   const totalAcc=D.acc.reduce((s,a)=>s+accBal(a),0);
-  const cash=D.cfg.iCash+sum(D.tx.filter(t=>t.type==='in'&&t.acc==='cash'))-sum(D.tx.filter(t=>(t.type==='out'||t.isVir)&&t.acc==='cash'));
+  const cash=D.cfg.iCash
+    +sum(D.tx.filter(t=>t.type==='in'&&(!t.acc||t.acc==='cash'||(!D.acc.length))))
+    -sum(D.tx.filter(t=>(t.type==='out'||t.isSav||t.isVir)&&(!t.acc||t.acc==='cash'||(!D.acc.length))));
   // Chips comptes
   const chipsEl=document.getElementById('h-chips');
   const accChips=D.acc.map(a=>`<div class="chip"><div class="chip-l">${a.emoji} ${a.name}</div><div class="chip-v" style="color:${a.color}">${fe(accBal(a))}</div></div>`).join('');
@@ -1067,7 +1070,7 @@ function txRow(t,del){
   else if(isSav){icoBg='rgba(48,209,88,.12)';icoC='var(--green)';ico='📈';valC='var(--green)';sign='−';}
   else if(t.type==='in'){icoBg='rgba(48,209,88,.15)';icoC='var(--green)';ico='↑';valC='var(--green)';sign='+';}
   else{icoBg='rgba(255,69,58,.15)';icoC='var(--red)';ico='↓';valC='var(--red)';sign='−';}
-  const accName=t.acc==='cash'?'Cash':D.acc.find(a=>a.id==t.acc)?.name||'Banque';
+  const accName=(!t.acc||t.acc==='cash')?'Cash':(D.acc.find(a=>String(a.id)===String(t.acc))?.name||'Cash');
   const acc2Name=t.acc2?D.acc.find(a=>a.id==t.acc2)?.name||'':null;
   const modeLabel=isSav?'Épargne':isVir?`${accName} → ${acc2Name||'?'}`:accName;
   const modePill=isSav?'pill-sav':isVir?'pill-vir':'';
@@ -1184,8 +1187,8 @@ function renderAccounts(){
   const al=document.getElementById('accounts-list');
   al.innerHTML=D.acc.length?D.acc.map(a=>{
     const bal=accBal(a);
-    const moIn=sum(D.tx.filter(t=>t.type==='in'&&t.acc==a.id&&inMo(t)));
-    const moOut=sum(D.tx.filter(t=>t.type==='out'&&t.acc==a.id&&inMo(t)));
+    const moIn=sum(D.tx.filter(t=>t.type==='in'&&String(t.acc)===String(a.id)&&inMo(t)));
+    const moOut=sum(D.tx.filter(t=>t.type==='out'&&String(t.acc)===String(a.id)&&inMo(t)));
     return `<div class="bank-account">
       <div class="ba-color" style="background:${a.color}"></div>
       <div style="font-size:24px">${a.emoji}</div>
