@@ -18,7 +18,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-system,'SF Pro Display','SF Pro Text',sans-serif;font-size:15px;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
 .safe-top{height:env(safe-area-inset-top,44px)}
-.page{display:none;height:calc(100vh - env(safe-area-inset-top,44px) - 54px - env(safe-area-inset-bottom,0px));overflow-y:auto}
+.page{display:none;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 90px);overflow-y:auto}
 .page::-webkit-scrollbar{display:none}
 .page.on{display:block}
 
@@ -429,7 +429,7 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 <div class="ov" id="ov-tx" onclick="closeOv(event,'ov-tx')">
   <div class="sheet">
     <div class="notch"></div>
-    <div class="sheet-title">Nouvelle opération</div>
+    <div class="sheet-title" id="tx-sheet-title">Nouvelle opération</div>
     <div class="sheet-body">
       <div class="field"><label class="f-lbl">Type</label>
         <div class="seg">
@@ -455,7 +455,8 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
       <div class="field"><label class="f-lbl">Montant (€)</label><input class="f-inp" id="fa" type="number" min="0" step="0.01" placeholder="0,00" inputmode="decimal"/></div>
       <div class="field"><label class="f-lbl">Date</label><input class="f-inp" id="fd" type="date"/></div>
       <div class="field"><label class="f-lbl">Note (optionnel)</label><input class="f-inp" id="fn" placeholder="Commentaire libre…"/></div>
-      <button class="cta" onclick="addTx()">Ajouter</button>
+      <button class="cta" id="tx-cta" onclick="addTx()">Ajouter</button>
+      <button class="cta cta-red" id="tx-del-btn" style="display:none;margin-top:8px" onclick="delEditTx()">Supprimer cette opération</button>
     </div>
   </div>
 </div>
@@ -607,7 +608,7 @@ function goto(id){
   const fab=document.getElementById('fab');
   if(id==='set'||id==='sav'){fab.style.display='none';}
   else if(id==='rec'){fab.style.display='flex';fab.onclick=()=>openOv('rec');}
-  else{fab.style.display='flex';fab.onclick=()=>openOv('tx');}
+  else{fab.style.display='flex';fab.onclick=()=>{resetTxSheet();openOv('tx');};}
   if(id==='dash')renderDash();
   if(id==='tx')renderTxPage();
   if(id==='rec')renderRec();
@@ -621,7 +622,7 @@ function inMo(t,m=cm,y=cy){const dt=new Date(t.date||Date.now());return dt.getMo
 
 // ════════ SHEET ════════
 function openOv(id){document.getElementById('ov-'+id).classList.add('on');}
-function closeOv(e,id){if(e.target.id===id)document.getElementById(id).classList.remove('on');}
+function closeOv(e,id){if(e.target.id===id){document.getElementById(id).classList.remove('on');if(id==='ov-tx')resetTxSheet();}}
 function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
 
 // ════════ FORM TYPE/MODE ════════
@@ -640,11 +641,47 @@ function setM(m){
 }
 
 // ════════ TRANSACTIONS ════════
+let editTxId=null;
+function openEditTx(id){
+  const t=D.tx.find(x=>x.id===id);if(!t)return;
+  editTxId=id;
+  document.getElementById('tx-sheet-title').textContent='Modifier l\'opération';
+  document.getElementById('tx-cta').textContent='Enregistrer les modifications';
+  document.getElementById('tx-del-btn').style.display='block';
+  const typ=t.isSav?'sav':t.type;
+  setT(typ);if(!t.isSav)setM(t.mode);
+  document.getElementById('fl').value=t.label||'';
+  document.getElementById('fa').value=t.amount||'';
+  document.getElementById('fd').value=t.date||'';
+  document.getElementById('fn').value=t.note||'';
+  const fc=document.getElementById('fc');
+  for(let i=0;i<fc.options.length;i++){if(fc.options[i].value===t.cat)fc.selectedIndex=i;}
+  openOv('tx');
+}
+function resetTxSheet(){
+  editTxId=null;
+  document.getElementById('tx-sheet-title').textContent='Nouvelle opération';
+  document.getElementById('tx-cta').textContent='Ajouter';
+  document.getElementById('tx-del-btn').style.display='none';
+  setT('in');setM('bank');
+  clear('fl','fa','fn');
+  document.getElementById('fd').value=new Date().toISOString().split('T')[0];
+}
 function addTx(){
   const l=v('fl'),a=pf('fa'),d=v('fd'),c=txT==='sav'?'Épargne':v('fc'),n=v('fn');
   if(!l||!a||!d){alert('Remplis tous les champs.');return;}
-  D.tx.unshift({id:Date.now(),label:l,amount:a,date:d,type:txT==='sav'?'out':txT,mode:txT==='sav'?'bank':txM,cat:c,note:n,isSav:txT==='sav'});
-  save();clear('fl','fa','fn');closeAllOv();renderDash();renderTxPage();
+  if(editTxId){
+    const idx=D.tx.findIndex(x=>x.id===editTxId);
+    if(idx>-1){D.tx[idx]={...D.tx[idx],label:l,amount:a,date:d,cat:c,note:n,type:txT==='sav'?'out':txT,mode:txT==='sav'?'bank':txM,isSav:txT==='sav'};}
+  }else{
+    D.tx.unshift({id:Date.now(),label:l,amount:a,date:d,type:txT==='sav'?'out':txT,mode:txT==='sav'?'bank':txM,cat:c,note:n,isSav:txT==='sav'});
+  }
+  save();resetTxSheet();closeAllOv();renderDash();renderTxPage();
+}
+function delEditTx(){
+  if(!editTxId||!confirm('Supprimer ?'))return;
+  D.tx=D.tx.filter(t=>t.id!==editTxId);
+  save();resetTxSheet();closeAllOv();renderTxPage();renderDash();
 }
 function delTx(id){if(!confirm('Supprimer ?'))return;D.tx=D.tx.filter(t=>t.id!==id);save();renderTxPage();renderDash();}
 
@@ -932,7 +969,7 @@ function txRow(t,del){
       <div class="row-val" style="color:${valC}">${sign}${fe(t.amount)}</div>
       <div class="row-detail">${fd(t.date)}</div>
     </div>
-    ${del?`<button class="row-del" onclick="delTx(${t.id})">✕</button>`:''}
+    ${del?`<button class="row-del" onclick="openEditTx(${t.id})" style="color:var(--blue);font-size:14px;padding:4px 6px">✏️</button><button class="row-del" onclick="delTx(${t.id})">✕</button>`:''}
   </div>`;
 }
 
