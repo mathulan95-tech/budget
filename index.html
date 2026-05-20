@@ -142,6 +142,24 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 .color-swatch{display:flex;gap:8px;flex-wrap:wrap}
 .swatch{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .15s}
 .swatch.sel{border-color:#fff}
+/* ONBOARDING */
+.ob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ob-card{background:#1c1c1e;border-radius:28px 28px 0 0;width:100%;max-width:480px;padding:28px 24px calc(env(safe-area-inset-bottom,20px) + 20px);animation:sheetUp .3s cubic-bezier(.34,1.1,.64,1)}
+.ob-step-dots{display:flex;gap:6px;justify-content:center;margin-bottom:24px}
+.ob-dot{width:7px;height:7px;border-radius:50%;background:var(--s3);transition:all .3s}
+.ob-dot.on{background:var(--blue);width:20px;border-radius:99px}
+.ob-icon{font-size:52px;text-align:center;margin-bottom:16px}
+.ob-title{font-size:22px;font-weight:700;letter-spacing:-.4px;margin-bottom:10px;text-align:center}
+.ob-desc{font-size:15px;color:var(--t2);line-height:1.6;text-align:center;margin-bottom:24px}
+.ob-steps-list{background:var(--s2);border-radius:14px;padding:14px 16px;margin-bottom:24px}
+.ob-step-item{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:.5px solid var(--sep)}
+.ob-step-item:last-child{border-bottom:none}
+.ob-step-num{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ob-step-text{font-size:14px;color:var(--t2);line-height:1.5}
+.ob-step-text b{color:var(--t1)}
+.ob-btn{width:100%;padding:16px;background:var(--blue);color:#fff;border:none;border-radius:14px;font-size:17px;font-weight:600;cursor:pointer;transition:opacity .12s;margin-bottom:10px}
+.ob-btn:active{opacity:.75}
+.ob-btn-skip{width:100%;padding:10px;background:none;color:var(--t3);border:none;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -150,7 +168,10 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
 <!-- ══════════ DASHBOARD ══════════ -->
 <div class="page on" id="page-dash">
   <div class="topbar">
-    <div class="topbar-title">Budget</div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="topbar-title">Budget</div>
+      <button onclick="openOv('help')" style="background:var(--s2);border:none;width:28px;height:28px;border-radius:50%;color:var(--t2);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">?</button>
+    </div>
     <div class="mpill">
       <button onclick="chMo(-1)">‹</button>
       <span id="mlabel">—</span>
@@ -358,6 +379,9 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
   </button>
   <button class="tab" id="nb-accounts" onclick="goto('accounts')">
     <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Comptes
+  </button>
+  <button class="tab" id="nb-set" onclick="goto('set')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Réglages
   </button>
 </nav>
 
@@ -568,6 +592,92 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:-apple-sy
   </div>
 </div>
 
+<!-- ══ SHEET: AIDE ══ -->
+<div class="ov" id="ov-help" onclick="closeOv(event,'ov-help')">
+  <div class="sheet">
+    <div class="notch"></div>
+    <div class="sheet-title">Guide d'utilisation</div>
+    <div class="sheet-body" style="padding-bottom:24px">
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">🚀 Par où commencer</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          <b style="color:var(--t1)">1.</b> Va dans <b style="color:var(--t1)">Comptes</b> → ajoute tes comptes bancaires (BNP, LCL…)<br>
+          <b style="color:var(--t1)">2.</b> Va dans <b style="color:var(--t1)">Réglages</b> → mets ton objectif d'épargne et tes budgets par catégorie<br>
+          <b style="color:var(--t1)">3.</b> Va dans <b style="color:var(--t1)">Récurrents</b> → ajoute loyer, abonnements, épargne auto<br>
+          <b style="color:var(--t1)">4.</b> Appuie sur <b style="color:var(--blue)">＋</b> pour saisir tes opérations au quotidien
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📊 Tableau (accueil)</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          Vue d'ensemble de ta situation financière.<br>
+          — <b style="color:var(--t1)">Solde total</b> : tous tes comptes + cash cumulés depuis le début<br>
+          — <b style="color:var(--t1)">Solde projeté fin de mois</b> : ton solde après les prélèvements à venir<br>
+          — <b style="color:var(--t1)">Objectif épargne</b> : progression vers ton objectif mensuel<br>
+          — <b style="color:var(--t1)">Reste à dépenser</b> : budget mensuel − dépenses − charges fixes<br>
+          — <b style="color:var(--t1)">Taux d'épargne</b> : % de tes revenus mis de côté ce mois<br>
+          — Les <b style="color:var(--t1)">flèches ‹ ›</b> permettent de naviguer entre les mois
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">↕ Flux (mouvements)</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          Toutes tes opérations avec filtres.<br>
+          — <b style="color:var(--t1)">＋ Entrée</b> : salaire, remboursement, vente…<br>
+          — <b style="color:var(--t1)">－ Dépense</b> : courses, restaurant, shopping…<br>
+          — <b style="color:var(--t1)">📈 Épargne</b> : virement vers une poche ou compte épargne<br>
+          — <b style="color:var(--t1)">⇄ Virement</b> : transfert entre tes comptes bancaires<br>
+          — Tape ✏️ pour modifier, ✕ pour supprimer
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">⏱ Récurrents</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          Tout ce qui part automatiquement chaque mois.<br>
+          — <b style="color:var(--t1)">Charges fixes</b> : loyer, essence, assurance, abonnement salle…<br>
+          — <b style="color:var(--t1)">Abonnements</b> : Netflix, Spotify… avec jour de prélèvement<br>
+          — <b style="color:var(--t1)">Épargne automatique</b> : virement mensuel vers une poche<br>
+          — Le <b style="color:var(--purple)">Minimum vital</b> = total de tout ça, pour savoir le strict minimum dont tu as besoin
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📈 Épargne</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          — <b style="color:var(--t1)">Comptes épargne</b> : Livret A, LEP, PEL… mets le solde actuel et mets-le à jour quand tu veux<br>
+          — <b style="color:var(--t1)">Poches projets</b> : Vacances, Voiture… avec objectif et barre de progression<br>
+          — Quand tu fais une opération <b style="color:var(--green)">📈 Épargne</b>, choisis la poche destination et la somme s'y ajoute automatiquement
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">💳 Comptes</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          — Crée un compte par carte/banque (BNP, Revolut, Compte pro…)<br>
+          — Chaque opération est associée à un compte<br>
+          — Le solde de chaque compte est calculé automatiquement depuis le début<br>
+          — Le <b style="color:var(--t1)">résumé annuel</b> montre ton cashflow mois par mois sur 12 mois
+        </div>
+      </div>
+
+      <div style="margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">⚙️ Réglages</div>
+        <div style="background:var(--s2);border-radius:12px;padding:14px;font-size:14px;line-height:1.7;color:var(--t2)">
+          — <b style="color:var(--t1)">Objectif épargne mensuelle</b> : la somme que tu vises à mettre de côté chaque mois<br>
+          — <b style="color:var(--t1)">Budget mensuel total</b> : tes revenus attendus, pour calculer le "reste à dépenser"<br>
+          — <b style="color:var(--t1)">Budget par catégorie</b> : fixe un plafond par poste (Alimentation 400€, Transport 150€…) → barre rouge si dépassé<br>
+          — <b style="color:var(--t1)">Solde initial Cash</b> : combien tu as en liquide au départ
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 // ══════════════════════════════════════════════════════
 // CLÉS LOCALSTORAGE — IMMUABLES
@@ -608,7 +718,7 @@ function goto(id){
   document.getElementById('page-'+id).classList.add('on');
   document.getElementById('nb-'+id).classList.add('on');
   const fab=document.getElementById('fab');
-  if(['set','sav','accounts'].includes(id)){fab.style.display='none';}
+  if(['set','sav','accounts','help'].includes(id)){fab.style.display='none';}
   else if(id==='rec'){fab.style.display='flex';fab.onclick=()=>openOv('rec');}
   else{fab.style.display='flex';fab.onclick=()=>{resetTxSheet();openOv('tx');};}
   if(id==='dash')renderDash();
@@ -1237,6 +1347,124 @@ function fe(n){if(isNaN(n))return'—';return n.toFixed(2).replace(/\B(?=(\d{3})
 function fd(s){if(!s)return'';const d=new Date(s);return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});}
 function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
 
+// ── ONBOARDING ──
+const OB_STEPS = [
+  {
+    icon: '👋',
+    title: 'Bienvenue dans Budget !',
+    desc: 'Ton appli perso pour gérer ton argent simplement. On va te guider en quelques étapes.',
+    btn: 'Commencer',
+    list: null
+  },
+  {
+    icon: '💳',
+    title: 'Tes comptes bancaires',
+    desc: 'Commence par ajouter tes comptes pour suivre chaque solde séparément.',
+    btn: 'Suivant',
+    list: [
+      {n:1, t:'Va dans <b>Comptes</b> (onglet en bas)'},
+      {n:2, t:'Appuie sur <b>＋ Ajouter un compte</b>'},
+      {n:3, t:'Entre le nom, ton solde actuel et choisis une couleur'},
+      {n:4, t:'Répète pour chaque compte (BNP, Revolut, Compte pro…)'}
+    ]
+  },
+  {
+    icon: '⏱',
+    title: 'Tes charges fixes',
+    desc: 'Loyer, abonnements, épargne auto… tout ce qui part chaque mois.',
+    btn: 'Suivant',
+    list: [
+      {n:1, t:'Va dans <b>Récurrents</b>'},
+      {n:2, t:'Ajoute tes <b>charges fixes</b> (loyer, essence, assurance…)'},
+      {n:3, t:'Ajoute tes <b>abonnements</b> avec le jour de prélèvement'},
+      {n:4, t:'Ajoute une <b>épargne automatique</b> si tu vires chaque mois'}
+    ]
+  },
+  {
+    icon: '⚙️',
+    title: 'Tes objectifs',
+    desc: 'Fixe un objectif d'épargne et un budget par catégorie pour mieux contrôler tes dépenses.',
+    btn: 'Suivant',
+    list: [
+      {n:1, t:'Va dans <b>Réglages</b>'},
+      {n:2, t:'Entre ton <b>objectif d'épargne mensuelle</b> (ex: 300€)'},
+      {n:3, t:'Entre ton <b>budget mensuel total</b> (tes revenus attendus)'},
+      {n:4, t:'Ajoute des <b>budgets par catégorie</b> : Alimentation 400€, Transport 150€…'}
+    ]
+  },
+  {
+    icon: '💰',
+    title: 'Saisis tes opérations',
+    desc: 'Appuie sur le bouton <b style="color:var(--blue)">＋</b> bleu pour ajouter une opération.',
+    btn: 'Suivant',
+    list: [
+      {n:1, t:'<b>Entrée</b> : salaire, remboursement…'},
+      {n:2, t:'<b>Dépense</b> : courses, resto, shopping…'},
+      {n:3, t:'<b>📈 Épargne</b> : virement vers une poche ou Livret A'},
+      {n:4, t:'<b>⇄ Virement</b> : transfert entre tes comptes'}
+    ]
+  },
+  {
+    icon: '🎯',
+    title: 'Épargne & projets',
+    desc: 'Crée des poches pour tes projets et suis leur progression.',
+    btn: 'Suivant',
+    list: [
+      {n:1, t:'Va dans <b>Épargne</b>'},
+      {n:2, t:'Ajoute tes <b>comptes épargne</b> (Livret A, LEP…)'},
+      {n:3, t:'Crée des <b>poches projets</b> : Vacances ✈️, Voiture 🚗…'},
+      {n:4, t:'Mets un <b>objectif</b> et suis la barre de progression'}
+    ]
+  },
+  {
+    icon: '🚀',
+    title: 'C'est parti !',
+    desc: 'Tu peux aussi appuyer sur le bouton <b style="color:var(--t1)">?</b> à tout moment pour revoir ce guide.',
+    btn: 'Commencer à utiliser Budget',
+    list: null
+  }
+];
+let obStep = 0;
+function renderObStep(){
+  const step = OB_STEPS[obStep];
+  const dots = OB_STEPS.map((_,i) => `<div class="ob-dot${i===obStep?' on':''}"></div>`).join('');
+  document.getElementById('ob-dots').innerHTML = dots;
+  let listHTML = '';
+  if(step.list){
+    listHTML = `<div class="ob-steps-list">${step.list.map(s=>`
+      <div class="ob-step-item">
+        <div class="ob-step-num">${s.n}</div>
+        <div class="ob-step-text">${s.t}</div>
+      </div>`).join('')}</div>`;
+  }
+  document.getElementById('ob-content').innerHTML = `
+    <div class="ob-icon">${step.icon}</div>
+    <div class="ob-title">${step.title}</div>
+    <div class="ob-desc">${step.desc}</div>
+    ${listHTML}
+    <button class="ob-btn" onclick="obNext()">${step.btn}</button>
+    ${obStep>0?'<button class="ob-btn-skip" onclick="obSkip()">Passer le tutoriel</button>':'<button class="ob-btn-skip" onclick="obSkip()">Passer</button>'}
+  `;
+}
+function obNext(){
+  if(obStep < OB_STEPS.length - 1){
+    obStep++;
+    renderObStep();
+  } else {
+    obFinish();
+  }
+}
+function obSkip(){obFinish();}
+function obFinish(){
+  document.getElementById('ob-overlay').style.display='none';
+  localStorage.setItem('b5_onboarded','1');
+}
+function showOnboarding(){
+  obStep=0;
+  renderObStep();
+  document.getElementById('ob-overlay').style.display='flex';
+}
+
 // ── INIT ──
 load();
 populateCatSelect('fc');populateCatSelect('bc-cat');
@@ -1244,6 +1472,15 @@ populateAccountSelects();populateSavDest();populateSavRecDest();
 document.getElementById('fd').value=new Date().toISOString().split('T')[0];
 setT('in');
 renderDash();
+if(!localStorage.getItem('b5_onboarded')){showOnboarding();}
 </script>
+<!-- ══ ONBOARDING ══ -->
+<div id="ob-overlay" class="ob-overlay" style="display:none">
+  <div class="ob-card">
+    <div class="ob-step-dots" id="ob-dots"></div>
+    <div id="ob-content"></div>
+  </div>
+</div>
+
 </body>
 </html>
